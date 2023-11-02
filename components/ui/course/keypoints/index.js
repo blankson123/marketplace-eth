@@ -2,7 +2,7 @@ export default function KeyPoints({ points }) {
   const renderedPoints = points.map((point, index) => {
     return (
       <>
-        <div className="relative">
+        <div className="relative" key={index}>
           <dt>
             <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
               <svg

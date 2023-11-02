@@ -33,12 +33,12 @@ export default function Navbar() {
               >
                 Whishlist
               </Link>
-              <Link
+              <a
                 href="#"
-                className="font-medium mr-8 text-indigo-600 hover:text-indigo-500"
+                className="px-8 py-3 border text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
               >
-                Log in
-              </Link>
+                Connect
+              </a>
             </div>
           </div>
         </nav>

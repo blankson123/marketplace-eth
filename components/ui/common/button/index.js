@@ -6,7 +6,7 @@ export default function Button({
   return (
     <button
       {...rest}
-      className={`px-8 py-3 border text-base font-medium rounded-md ${className}`}
+      className={`disabled:opacity-50 disabled:cursor-not-allowed px-8 py-3 border text-base font-medium rounded-md ${className}`}
     >
       {children}
     </button>

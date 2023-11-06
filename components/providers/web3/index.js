@@ -22,6 +22,7 @@ export default function Web3Provider({ children }) {
   useEffect(() => {
     const loadProvider = async () => {
       const provider = await detectEthereumProvider();
+
       if (provider) {
         const web3 = new Web3(provider);
         setWeb3Api({ provider, web3, contract: null, isLoading: false });

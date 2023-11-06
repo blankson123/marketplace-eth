@@ -8,12 +8,10 @@ import { getAllCourses } from "@content/courses/fetcher";
 export default function Marketplace({ courses }) {
   const { account } = useAccount();
   const { network } = useNetwork();
-
   return (
     <>
       <div className="py-4">
-        {network.data}
-        <WalletBar address={account.data} />
+        <WalletBar address={account.data} network={network?.data} />
       </div>
       <CourseList courses={courses} />
     </>

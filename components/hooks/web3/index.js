@@ -16,3 +16,14 @@ export const useAccount = () => {
   const swrRes = enhanceHook(useHooks((hooks) => hooks.createUseAccount)());
   return { account: swrRes };
 };
+
+export const useWalletInfo = () => {
+  const { account } = useAccount();
+  const { network } = useNetwork();
+
+  return {
+    account,
+    network,
+    canPurchaseCourse: !!(account.data && network.isSupported),
+  };
+};

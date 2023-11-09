@@ -1,7 +1,9 @@
 import { handler as createUseAccount } from "./handler";
+import { handler as createUseNetwork } from "./useNetwork";
 
-export const setupHooks = (web3, provider) => {
+export const setupHooks = (...deps) => {
   return {
-    createUseAccount: createUseAccount(web3, provider),
+    createUseAccount: createUseAccount(...deps),
+    createUseNetwork: createUseNetwork(...deps),
   };
 };

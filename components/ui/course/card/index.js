@@ -13,17 +13,19 @@ export default function Card({ course, Footer }) {
           alt={course.title}
         />
 
-        <div className="p-8">
+        <div className="p-8 pb-4">
           <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
             {course.type}
           </div>
           <Link
             href={`/courses/${course.slug}`}
-            className="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
+            className="h-12 block mt-1 text-lg leading-tight font-medium text-black hover:underline"
           >
             {course.title}
           </Link>
-          <p className="mt-2 text-gray-500">{course.description}</p>
+          <p className="mt-2 text-gray-500">
+            {course.description.substring(0, 100)}...
+          </p>
           {Footer && <Footer />}
         </div>
       </div>

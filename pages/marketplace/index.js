@@ -1,6 +1,6 @@
 import { useEthPrice } from "@components/hooks/useEthPrice";
 import { useWalletInfo } from "@components/hooks/web3";
-import { Button } from "@components/ui/common";
+import { BreadCrumb, Button } from "@components/ui/common";
 import { CourseCard, CourseList } from "@components/ui/course";
 import { BaseLayout } from "@components/ui/layout";
 import { OrderModal } from "@components/ui/order";
@@ -14,7 +14,7 @@ export default function Marketplace({ courses }) {
 
   return (
     <>
-      <div className="py-4">
+      <div className="pt-4">
         <WalletBar
           address={account.data}
           network={{
@@ -25,6 +25,9 @@ export default function Marketplace({ courses }) {
           }}
         />
         <EthRates eth={eth.data} perItem={eth.perItem} />
+        <div className="flex flex-row-reverse py-4 px-4 sm:px-6 lg:px-8">
+          <BreadCrumb />
+        </div>
       </div>
       <CourseList courses={courses}>
         {(course) => (

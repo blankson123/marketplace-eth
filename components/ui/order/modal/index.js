@@ -13,21 +13,27 @@ const _createFormState = (isDisabled = false, message = "") => ({
   message,
 });
 
-const createFormState = ({ price, email, confirmationEmail }) => {
+const createFormState = ({ price, email, confirmationEmail }, hasAgreedTOS) => {
   if (!price || Number(price) <= 0) {
     return _createFormState(true, "Price is not valid");
   } else if (confirmationEmail.length === 0 || email.length === 0) {
     return _createFormState(true, "Email and confirmation email is required");
   } else if (email !== confirmationEmail) {
     return _createFormState(true, "Emails do not match");
+  } else if (!hasAgreedTOS) {
+    return _createFormState(
+      true,
+      "You need to accept terms of service in order to submit the form."
+    );
   }
   return _createFormState();
 };
 
-export default function OrderModal({ course, onClose }) {
+export default function OrderModal({ course, onClose, onSubmit }) {
   const [isOpen, setIsOpen] = useState(false);
   const [order, setOrder] = useState(defaultOrder);
   const [enablePrice, setEnablePrice] = useState(false);
+  const [hasAgreedTOS, setHasAgreedTOS] = useState(false);
 
   const { eth } = useEthPrice();
 
@@ -45,10 +51,12 @@ export default function OrderModal({ course, onClose }) {
   const closeModal = () => {
     setIsOpen(false);
     setOrder(defaultOrder);
+    setEnablePrice(false);
+    setHasAgreedTOS(false);
     onClose();
   };
 
-  const formState = createFormState(order);
+  const formState = createFormState(order, hasAgreedTOS);
 
   formState.message;
   return (
@@ -152,7 +160,14 @@ export default function OrderModal({ course, onClose }) {
               </div>
               <div className="text-xs text-gray-700 flex">
                 <label className="flex items-center mr-2">
-                  <input type="checkbox" className="form-checkbox" />
+                  <input
+                    checked={hasAgreedTOS}
+                    onChange={({ target: { checked } }) => {
+                      setHasAgreedTOS(checked);
+                    }}
+                    type="checkbox"
+                    className="form-checkbox"
+                  />
                 </label>
                 <span>
                   I accept Eincode &apos;terms of service&apos; and I agree that
@@ -169,7 +184,12 @@ export default function OrderModal({ course, onClose }) {
           </div>
         </div>
         <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex">
-          <Button disabled={formState.isDisabled} onClick={() => {}}>
+          <Button
+            disabled={formState.isDisabled}
+            onClick={() => {
+              onSubmit(order);
+            }}
+          >
             Submit
           </Button>
           <Button onClick={closeModal} variant="red">
